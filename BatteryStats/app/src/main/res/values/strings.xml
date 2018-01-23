@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">BatteryStats</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="Connection_Quality">Choose Connection Quality</string>
+    <string name="Good">Good</string>
+    <string name="Moderate">Moderate</string>
+    <string name="Bad">Bad</string>
+    <string name="Choose">Choose</string>
 </resources>

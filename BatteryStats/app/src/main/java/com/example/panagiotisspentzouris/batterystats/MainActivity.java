@@ -14,11 +14,25 @@ import static com.google.android.youtube.player.YouTubePlayer.PlaybackEventListe
 import static com.google.android.youtube.player.YouTubePlayer.PlayerStateChangeListener;
 import static com.google.android.youtube.player.YouTubePlayer.Provider;
 
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
+
+
 public class MainActivity extends YouTubeBaseActivity implements OnInitializedListener {
     public static final String API_KEY = "AIzaSyDgnLOc7q9r6bjMeWRH-itRtyUFUkrGAPM";
-
     //https://www.youtube.com/watch?v=<VIDEO_ID>
     public static final String VIDEO_ID = "-m3V8w_7vhk";
+
+    private RadioGroup radioGroup;
+    private RadioButton good, moderate, bad;
+    private Button button;
+    private TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +42,50 @@ public class MainActivity extends YouTubeBaseActivity implements OnInitializedLi
 
         // Initializing YouTube player view
         YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
-        youTubePlayerView.initialize(API_KEY, this);
 
+        radioGroup = (RadioGroup) findViewById(R.id.myRadioGroup);
+
+        radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // find which radio button is selected
+                if(checkedId == R.id.Good) {
+                    Toast.makeText(getApplicationContext(), "choice: Good",
+                            Toast.LENGTH_SHORT).show();
+                } else if(checkedId == R.id.Moderate) {
+                    Toast.makeText(getApplicationContext(), "choice: Moderate",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "choice: Bad",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        });
+
+        good = (RadioButton) findViewById(R.id.Good);
+        moderate = (RadioButton) findViewById(R.id.Moderate);
+        bad = (RadioButton) findViewById(R.id.Bad);
+        textView = (TextView) findViewById(R.id.text);
+
+        button = (Button)findViewById(R.id.chooseBtn);
+        button.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+
+                // find which radioButton is checked by id
+                if(selectedId == good.getId()) {
+                    textView.setText("Good");
+                } else if(selectedId == moderate.getId()) {
+                    textView.setText("Moderate");
+                } else {
+                    textView.setText("Bad");
+                }
+            }
+        });
     }
 
     @Override

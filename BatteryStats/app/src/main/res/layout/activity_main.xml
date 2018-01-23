@@ -9,6 +9,50 @@
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dip"
         android:background="#ebeff2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/Connection_Quality"
+        android:text="@string/Connection_Quality" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text"
+        android:id="@+id/myRadioGroup"
+        android:checkedButton="@+id/checked" >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Good"
+            android:text="@string/Good" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Moderate"
+            android:text="@string/Moderate" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Bad"
+            android:text="@string/Bad" />
+
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/myRadioGroup"
+        android:layout_marginTop="10dp"
+        android:id="@+id/chooseBtn"
+        android:text="@string/Choose" />
+
+
 </LinearLayout>
