@@ -47,7 +47,7 @@ public class MainActivity extends Activity implements OnClickListener {
             }
         });
 
-        mWebview.loadUrl("http://www.google.com");
+        mWebview.loadUrl("http://10.42.0.1:8000/atc_demo_ui/");
 
         //setContentView(mWebview);
 
