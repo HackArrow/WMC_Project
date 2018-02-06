@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -26,10 +27,11 @@ public class MainActivity extends Activity implements OnClickListener {
         FloatingActionButton myFab = findViewById(R.id.fab);
         myFab.setOnClickListener(this);
 
-        WebView mWebview = findViewById(R.id.webview);
+        final WebView mWebview = findViewById(R.id.webview);
         mWebview.getSettings().setJavaScriptEnabled(true); // enable javascript
         mWebview.getSettings().setSupportZoom(true);
         mWebview.getSettings().setBuiltInZoomControls(true);
+        final SwipeRefreshLayout mySwipeRefreshLayout = this.findViewById(R.id.swipeContainer);;
 
         final Activity activity = this;
 
@@ -49,7 +51,16 @@ public class MainActivity extends Activity implements OnClickListener {
 
         mWebview.loadUrl("http://10.42.0.1:8000/atc_demo_ui/");
 
-        //setContentView(mWebview);
+        mySwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        mWebview.reload();
+                        mySwipeRefreshLayout.setRefreshing(false);
+                    }
+                }
+        );
+
 
     }
 

@@ -8,10 +8,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
-import static com.google.android.youtube.player.YouTubePlayer.ErrorReason;
 import static com.google.android.youtube.player.YouTubePlayer.OnInitializedListener;
-import static com.google.android.youtube.player.YouTubePlayer.PlaybackEventListener;
-import static com.google.android.youtube.player.YouTubePlayer.PlayerStateChangeListener;
 import static com.google.android.youtube.player.YouTubePlayer.Provider;
 
 
@@ -29,6 +26,7 @@ public class YoutubeActivity extends YouTubeBaseActivity implements OnInitialize
         // Initializing YouTube player view
         YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
         youTubePlayerView.initialize(API_KEY, this);
+
     }
 
     @Override
@@ -38,7 +36,34 @@ public class YoutubeActivity extends YouTubeBaseActivity implements OnInitialize
 
     @Override
     public void onInitializationSuccess(Provider provider, YouTubePlayer player, boolean wasRestored) {
-        if(null== player) return;
+
+        player.setPlayerStateChangeListener(new YouTubePlayer.PlayerStateChangeListener() {
+            @Override
+            public void onLoading() {}
+
+            @Override
+            public void onLoaded(String s) {}
+
+            @Override
+            public void onAdStarted() {}
+
+            @Override
+            public void onVideoStarted() {
+                Toast.makeText(YoutubeActivity.this, "Video Started", Toast.LENGTH_SHORT).show();
+                //DumpsysBatteryStats dbs = new DumpsysBatteryStats();
+                //dbs.resetStats();
+            }
+
+            @Override
+            public void onVideoEnded() {
+                Toast.makeText(YoutubeActivity.this, "Video Ended", Toast.LENGTH_SHORT).show();
+                //DumpsysBatteryStats dbs = new DumpsysBatteryStats();
+                //dbs.getStats();
+            }
+
+            @Override
+            public void onError(YouTubePlayer.ErrorReason errorReason) {}
+        });
 
         // Start buffering
         if (!wasRestored) {
@@ -47,23 +72,6 @@ public class YoutubeActivity extends YouTubeBaseActivity implements OnInitialize
             //player.play();
         }
 
-        // Add listeners to YouTubePlayer instance
-        player.setPlayerStateChangeListener(new PlayerStateChangeListener() {
-            @Override public void onAdStarted() { }
-            @Override public void onError(ErrorReason arg0) { }
-            @Override public void onLoaded(String arg0) { }
-            @Override public void onLoading() { }
-            @Override public void onVideoEnded() { }
-            @Override public void onVideoStarted() { }
-        });
-
-
-        player.setPlaybackEventListener(new PlaybackEventListener() {
-            @Override public void onBuffering(boolean arg0) { }
-            @Override public void onPaused() { }
-            @Override public void onPlaying() { }
-            @Override public void onSeekTo(int arg0) { }
-            @Override public void onStopped() { }
-        });
     }
 }
+
