@@ -27,6 +27,17 @@ public class MainActivity extends Activity implements OnClickListener {
         FloatingActionButton myFab = findViewById(R.id.fab);
         myFab.setOnClickListener(this);
 
+        FloatingActionButton myFab2 = findViewById(R.id.faby);
+        myFab2.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("org.zwanoo.android.speedtest");
+                if (launchIntent != null) {
+                    startActivity(launchIntent);//null pointer check in case package name was not found
+                }
+            }
+        });
+
         final WebView mWebview = findViewById(R.id.webview);
         mWebview.getSettings().setJavaScriptEnabled(true); // enable javascript
         mWebview.getSettings().setSupportZoom(true);

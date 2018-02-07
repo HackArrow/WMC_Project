@@ -42,7 +42,6 @@ public class EditFiles {
         String s = readFile();
         byte data[] = s.getBytes();
         Path p = Paths.get("downloads/my_batterystats.txt");
-
         try (OutputStream out = new BufferedOutputStream(
                 Files.newOutputStream(p, CREATE, APPEND))) {
             out.write(data, 0, data.length);
